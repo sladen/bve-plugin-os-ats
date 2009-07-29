@@ -11,13 +11,13 @@
 typedef long Timer;
 bool tOn(Timer &t, int currentms, int interval);
 
-typedef struct Indicator
+typedef struct pIndicator
 {
 	struct PLUGIN_OPTION *p;
 	int v;
 	Timer t;
 	bool on;
-};
+} Indicator;
 Indicator NewIndicator(int opt, int startval);
 #define SetIndicator(i, x) { i.v = x; i.t = TIMER_OFF; i.on = true; }
 #define BlinkIndicator(i, x) { i.v = x; ResetTimer(i.t); i.on = true; }

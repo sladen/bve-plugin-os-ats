@@ -1,3 +1,6 @@
+#ifndef __WIN32__
+#include <stdlib.h>
+#endif
 #include "speedcontrol.h"
 
 int scSpeed;
