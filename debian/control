@@ -9,7 +9,7 @@ Standards-Version: 3.8.0
 
 Package: bve-plugin-os-ats
 Architecture: any
-Depends: ${shlibs:Depends}
+Depends: ${shlibs:Depends}, bve-nativepluginloader
 Enhances: bve-train-br-class-323
 Description: BVE Train simulator plugin for stream/diesels
  OS_ATS provides additional railway/train simulation extension
