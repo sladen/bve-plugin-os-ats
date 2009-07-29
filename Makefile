@@ -6,7 +6,7 @@ CFLAGS=-shared -fPIC
 LDFLAGS=-shared
 
 OS_Ats1.so: atsplugin.o confload.o tools.o $(MODULES)
-	$(LD) -o $@ $(LDFLAGS) $^
+	$(LD) -o $@ $(LDFLAGS) -lc $^
 
 # Over-enthusiastic circular inclusion...
 atsplugin.cpp: atsplugin.h \
