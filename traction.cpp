@@ -1,3 +1,6 @@
+#ifndef __WIN32__
+#include <stdlib.h>
+#endif
 #include "traction.h"
 
 int hpTemperature = 0;

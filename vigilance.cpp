@@ -1,3 +1,6 @@
+#ifndef __WIN32__
+#include <stdlib.h>
+#endif
 #include "vigilance.h"
 
 Timer vigilance = 0;

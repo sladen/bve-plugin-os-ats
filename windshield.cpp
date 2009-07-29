@@ -1,4 +1,7 @@
 #include "windshield.h"
+#ifndef __WIN32__
+#include <stdlib.h>
+#endif
 
 #define MAXDROPS 256
 

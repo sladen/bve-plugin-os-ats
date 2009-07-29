@@ -1,5 +1,9 @@
+#ifndef __WIN32__
+#include <stdio.h>
+#endif
 #include "confload.h"
 
+#ifdef __WIN32__
 //stdio imitation
 DWORD stdio_imitation_temp;
 #define fopenr(f) CreateFile(f, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL)
@@ -15,7 +19,7 @@ int fgetc(HANDLE f)
 	if(success == FALSE || stdio_imitation_temp == 0) return EOF;
 	return feed[0];
 }
-int fgets(HANDLE f, char *buf, int maxlen)
+int fgets(char *buf, int maxlen, HANDLE f)
 {
 	int feed, read = 0;
 	while(read < maxlen - 1) {
@@ -29,6 +33,7 @@ int fgets(HANDLE f, char *buf, int maxlen)
 	return read;
 }
 //end stdio imitation
+#endif
 
 
 char commands[NUM_PLUGIN_OPTIONS][COMMAND_LENGTH] = {
@@ -211,7 +216,9 @@ void SetDefaults()
 bool LoadConfig()
 {
 //	char buf[MAX_PATH + 1 + 12] = "";
+#ifdef __WIN32__
 	char *buf = new char[MAX_PATH + 1 + 12];
+
 	if(buf == NULL)
 		return false;
 	*buf = '\0';
@@ -234,16 +241,24 @@ bool LoadConfig()
 		delete buf;
 		return false;
 	}
+#else
+	// Hardcoding, but still need to figure out how to get the Train's directory -sladen
+	FILE *f = fopen("OS_Ats1.cfg", "r");
+	if (f == NULL)
+	  return false;
+#endif
 		
 //	char line[LINE_LENGTH+1];
 	char *line = new char[LINE_LENGTH + 1];
 	if(line == NULL)
 	{
+#ifdef __WIN32__
 		delete buf;
+#endif
 		return false;
 	}
 	
-	while(fgets(f, line, LINE_LENGTH) > 0)
+	while(fgets(line, LINE_LENGTH, f) > 0)
 	{
 		if(line[0] == ';')
 			continue;
@@ -298,7 +313,9 @@ bool LoadConfig()
 	fclose(f);
 	
 	delete line;
+#ifdef __WIN32__
 	delete buf;
+#endif
 	return true;
 }
 

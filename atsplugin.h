@@ -3,13 +3,20 @@
 #ifndef ATSPLUGIN_H
 #define ATSPLUGIN_H
 
+#ifdef __WIN32__
 #include <windows.h>
+#endif
 #include "defs.h"
 #include "confload.h"
 #include "tools.h"
 #define ATS_EXPORTS
 
+#ifndef __WIN32__
+#define min(a,b) (((a) < (b)) ? (a) : (b))
+#define max(a,b) (((a) > (b)) ? (a) : (b))
+#else
 #define abs(x) ((x) < 0 ? -(x) : (x))
+#endif
 #define swap(x, y, t) { t a=x; x=y; y=a; }
 
 //=============================
@@ -18,10 +25,15 @@
 //             Rock_On, mackoy
 //=============================
 
+#ifdef __WIN32__
 #ifdef ATS_EXPORTS
 #define ATS_API __declspec(dllexport)
 #else
 #define ATS_API __declspec(dllimport)
+#endif
+#else
+#define WINAPI
+#define ATS_API 
 #endif
 
 // ATS Plug-in Version
