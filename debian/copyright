@@ -1,0 +1,28 @@
+This package was Debianised by Paul Sladen <ubuntu@paul.sladen.org>
+on 2009-07-29 01:50 +0000
+
+It was downloaded from:
+  http://koti.welho.com/tuusaare/OS_ATS1_3.zip
+
+Upstream authors:
+  Oskari Saarekas <tocgame@welho.com>
+
+Copyright:
+  Copyright      2004 Mackoy (original atsplugin.*)
+  Copyright 2004-2005 Oskari Saarekas
+  Copyright      2009 Paul Sladen (Debian packaging)
+
+  From 'os_ats1_3_source.txt':
+
+    Conditions of use:
+
+    The source may be freely used for non-commercial projects. If you
+    release work that is based on this source, or uses parts of this
+    source, this must be mentioned in the authors list of your
+    work. If you release the source code of work that is based on this
+    source, or uses parts of this source, the conditions of use may
+    not be contradictory to the conditions listed here. Use the source
+    at your own risk. The atsplugin.h and atsplugin.cpp files are
+    partially by Mackoy.
+
+  Any Debian-packaging additions are hereby placed into the Public Domain.

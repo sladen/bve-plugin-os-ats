@@ -1,0 +1,28 @@
+Source: bve-plugin-os-ats
+Section: games
+Priority: optional
+Maintainer: Paul Sladen <ubuntu@paul.sladen.org>
+Build-Depends: debhelper
+Vcs-Browser: http://github.com/sladen/bve-plugin-os-ats/tree/debian
+Vcs-Git: git://github.com/sladen/bve-plugin-os-ats.git
+Standards-Version: 3.8.0
+
+Package: openbve
+Architecture: all
+Depends: ${misc:Depends}
+Enhances: bve-train-br-class-323
+Description: BVE Train simulator plugin for stream/diesels
+ OS_ATS provides additional railway/train simulation extension
+ features for BVE based trains.
+
+ * Safety systems: British AWS; British TPWS; Trainstop; Vigilance/EB/
+   Dead man's brake handle; Overspeed monitoring.
+
+ * Traction specific models: Generic; Diesel; Steam.
+
+ * Others: Power (Pantograph / pickup shoe); Windshield with rain and
+   wiper; Miscellaneous traction interlocks
+
+ The feature-set of the plugin is selectable with a train-specific
+ configuration file and enabled by adding '.Beacon' commands to
+ suitable route files.

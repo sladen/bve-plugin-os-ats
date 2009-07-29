@@ -1,0 +1,63 @@
+#!/usr/bin/make -f
+export DH_VERBOSE=15
+TARGET = $(CURDIR)/debian/bve-plugin-os-ats
+PLUGINNAME = OS_Ats1.so
+PLUGINDIR = usr/lib/bve/plugins
+PLUGINTARGET = $(TARGET)/$(PLUGINDIR)/$(PLUGINNAME)
+
+TRAINTARGET = $(TARGET)/usr/share/games/bve/Train
+
+# List of trains to "enhance" by providing an ats.cfg + symlink
+TRAINS = BR_Class_323
+
+configure: configure-stamp
+configure-stamp:
+	dh_testdir
+	touch configure-stamp
+
+build: build-stamp
+build-stamp: configure-stamp 
+	dh_testdir
+	make
+	touch build-stamp
+
+clean:
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp configure-stamp
+	rm -rf $(TARGET)
+	make clean
+	dh_clean
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k 
+	dh_installdirs
+	for $$dir in 
+	install -m 644 -T $(CURDIR)/$(PLUGINNAME) $(PLUGINTARGET)
+        for train in $(TRAINS) ; do \
+	  mkdir -p $(TRAINTARGET)/$$train/
+	  ln -s $(PLUGINTARGET) $(TRAINTARGET)/$$train/ ; \
+	  echo $(PLUGINNAME) > $(TRAINTARGET)/$$train/ats.cfg ; \
+        done
+
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+	dh_install
+	dh_installchangelogs
+	dh_installdocs
+	dh_fixperms
+	dh_link
+	dh_installdeb
+	dh_compress
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary-indep: 
+	# Do nothing
+
+binary: binary-indep
+.PHONY: build clean binary-indep binary install configure
