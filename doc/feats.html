@@ -1,0 +1,125 @@
+<html>
+<head>
+    <title>OS_ATS plug-in features</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+<a href="index.html">&lt;&lt; Back to index</a>
+
+<h1>OS_ATS plug-in features</h1>
+
+<p>
+The most significant features of the plug-in are listed here with
+a brief explanation. For more detailed information, see the list
+of attributes on the "how to configure" page. It's still worth the
+time to browse through the text to see what can be done with the
+plug-in. Taking a look and even copying text from the demo trains'
+<code>Panel2.cfg</code> and <code>OS_Ats1.cfg</code> files won't
+do any harm either if you have trouble customizing your own train
+to use features offered by the plug-in.
+</p>
+
+
+<h2>Safety systems</h2>
+
+<h3>AWS</h3>
+<p>
+British AWS is a system which alarms the driver audibly and visually
+when the train is approaching a signal showing danger or caution, or
+a fixed speed limit. If the driver doesn't acknowledge the alarm, the
+train is braked to a stand.
+</p>
+
+<h3>TPWS</h3>
+<p>
+British TPWS is a supplementary device used in conjunction with the
+AWS to enhance train safety. TPWS brakes the train to a stand without
+advance warning if it approaches a signal at danger, or a fixed speed
+limit too fast. The train is halted also upon SPADing. An override
+feature is included for passing a signal at danger under permission.
+</p>
+
+<h3>Trainstop</h3>
+<p>
+Trainstop is a simpler version of TPWS, which only stops the train
+when it SPADs. This is intended for LU or similar use.
+</p>
+
+<h3>Vigilance</h3>
+<p>
+Vigilance / EB / dead man's brake is a device which regularly
+tests the driver's state. If the driver is for some reason unable
+to acknowledge the device in a short period of time, the train
+will come to a halt.
+</p>
+
+<h3>Overspeed</h3>
+<p>
+Overspeed safety device monitors a fixed maximum allowed speed of the
+train, and warns the driver if it's exceeded. The train may be braked
+automatically to a safe speed upon speeding.
+</p>
+
+
+<h2>Traction specific</h2>
+
+<h3>Generic</h3>
+<p>
+Motor and engine temperatures are possible to simulate with the plug-in.
+Temperature can raise depending on the use of power, with the part of
+train eventually overheating and breaking down, unless power is eased.
+A simple mock ammeter is available for electric trains.
+</p>
+
+<h3>Diesel</h3>
+<p>
+For Diesel trains it is possible to simulate fuel usage with fueling points
+possibly somewhere along the route, and engine stopping upon running out of
+fuel. Also a mechanical gearbox is featured with automatic or manual gear
+shifting. For mechanical transmission, the engine RPM is modeled with a
+visual panel tachometer. It's also possible to define the performance of
+the engine on each gear.
+</p>
+
+<h3>Steam</h3>
+<p>
+Steam locomotives are modeled simply in the plug-in. In addition to reverser
+and regulator, the driver has to adjust the cutoff to get the locomotive move
+efficiently and quickly, at the same time trying to conserve steam to keep
+sufficient boiler pressure. Injector has to be regularly used to move water
+from the tanks or tender to the boiler. Water in the boiler turns slowly into
+steam and pressure, but the injector feeding water also requires steam to operate.
+</p>
+
+
+<h2>Others</h2>
+
+<h3>Power</h3>
+<p>
+Pantograph / pickup shoe positions on an electric train can be defined, and the
+train will behave correctly when running on an overhead wire isolating section,
+or on a section where power rail is missing. Three different behaviour patterns
+are provided for such sections.
+</p>
+
+<h3>Windshield</h3>
+<p>
+OS_ATS plug-in enables the train developer to create a windshield with animated wiper.
+Also raindrops splashing and sticking on the windshield until being wiped are possible.
+Sounds can be associated to both features.
+</p>
+
+<h3>Miscellaneous</h3>
+<p>
+Various minor safety measures such as traction interlocks and different forced brakings
+are included, along with extended features relating to reverser. It's possible to add
+a digital display in the cab indicating the location of the train. The location data
+could be added to the timetable for indicating e.g. the station stop and signal locations.
+</p>
+
+
+<p class="copyright">Copyright 2004, 2005 Oskari Saarekas</p>
+
+</body>
+</html>

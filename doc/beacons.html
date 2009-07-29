@@ -1,0 +1,66 @@
+<html>
+<head>
+    <title>Making routes compatible with OS_ATS</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+<a href="index.html">&lt;&lt; Back to index</a>
+
+<h1>Making routes compatible with OS_ATS</h1>
+<p>
+Trains fitted with the plug-in do not require anything special from
+the route to work correctly, but some features such as safety systems,
+windshield water drops, power gaps and fueling points will not work.
+</p>
+
+<p>
+To make a route compatible with OS_ATS is not a big deal. Simply insert
+some <code>.Beacon</code> commands in correct places with certain parameters
+(explained below), and any train equipped with the plug-in will have all
+of its features enabled and working correctly. See BVE v4 csv-route commands
+for more info on the <code>.Beacon</code> and advanced signalling commands.
+</p>
+
+<p>
+In BVE v4, the new <code>.Beacon</code> command is used instead of the old
+.Transponder command, being flexibler and better suited for the plug-ins.
+The table below lists the beacons recognized by the OS_ATS plug-in, and
+what effect they may have. The <code>.Beacon</code> command has four
+parameters: The first integer is the type of the beacon, which distinguishes
+it from other beacons. The second integer is the index to the visual object
+placed at the location of the beacon. For the generic beacons you might want
+to create an invisible object. The third integer links the beacon to a specific
+signal. And finally the fourth integer is an supplementary parameter passed
+to the plug-in. In case of speed parameter, kilometres per hour is used.
+</p>
+
+<table cellpadding="0" cellspacing="0" class="beaconlist">
+<tr> <th style="width: 25%;">Command</th>              <th>Description</th></tr>
+<tr> <th colspan="2">Generic</th></tr>
+<tr> <td>.Beacon 20; x; 0; Length,</td>  <td>Start of nonelectrified gap in the overhead wire or power rail. Length is in metres.</td></tr>
+<tr> <td>.Beacon 21; x; 0; Intensity,</td>  <td>Sets the rain intensity from this point onwards. Intensity maximum is 100, and minimum 0 (no rain). Currently this only affects how quickly drops appear on the windshield.</td></tr>
+<tr> <td>.Beacon 22; x; 0; Border,</td>  <td>Starts or ends a fueling point section. If border is 1, the fueling section starts here. If border is 0, fueling section stops here.</td></tr>
+<tr> <td>.Beacon 23; x; 0; Side,</td>  <td>Defines the door operation at next station stop. If side is 0, doors remain closed. Side -1 means left door opens, 1 means right door. 2 for both doors. It's recommended to insert two beacons per station: one ahead of the stopping position range, and one at the exact stop position.</td></tr>
+<tr> <th colspan="2">UK-related (safety systems)</th></tr>
+<tr> <td>.Beacon 44000; x; 1; 0,</td>  <td>AWS signal approach magnet. AWS alarm goes off if the next signal is not showing 'clear' aspect at the time of train running over the magnet.</td></tr>
+<tr> <td>.Beacon 44001; x; 0; 0,</td>  <td>Fixed AWS warning magnet. AWS alarm goes off when train runs over the magnet.</td></tr>
+<tr> <td>.Beacon 44002; x; 1; Speed,</td>  <td>TPWS signal approach magnet. TPWS stops train if the next signal is at danger, and train's speed exceeds the defined value.</td></tr>
+<tr> <td>.Beacon 44003; x; 0; 0,</td>  <td>TPWS/LU Trainstop. Train is stopped if the adjacent signal is at danger at the time of train running over the magnet.</td></tr>
+<tr> <td>.Beacon 44004; x; 0; Speed,</td>  <td>TPWS fixed speed limit approach magnet. TPWS stops train if speed exceeds the defined value.</td></tr>
+</table>
+
+<p>
+The signal approach magnets should be placed well ahead of the actual signal.
+However, the trainstop magnet command should be placed immediately after the
+signal <code>.SigF</code> and <code>.Section</code> commands. From the aspect
+indices inserted in the <code>.Section</code> command, 0 is interpreted as
+a danger aspect, and indices with value greater or equal to 4 are concidered
+clear aspects. Indices 1 - 3 are various caution aspects.
+</p>
+
+
+<p class="copyright">Copyright 2004, 2005 Oskari Saarekas</p>
+
+</body>
+</html>

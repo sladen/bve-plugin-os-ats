@@ -1,0 +1,171 @@
+OS_ATS1.3 Copyright 2004, 2005 Oskari Saarekas
+
+Conditions of use:
+
+The source may be freely used for non-commercial projects. If you release work that is based on this source, or uses parts of this source, this must be mentioned in the authors list of your work. If you release the source code of work that is based on this source, or uses parts of this source, the conditions of use may not be contradictory to the conditions listed here. Use the source at your own risk. The atsplugin.h and atsplugin.cpp files are partially by Mackoy.
+
+
+
+If you use Dev-C++, you can make a project in the following way:
+1) Create a blank directory and extract the plugin files there.
+2) In Dev-C++, create a new C++ project in the same directory with the files, and name the project OS_ATS1.
+3) Do away with the automatically-generated files, and add all the plugin files into the project (excluding the export.def file and the documentation files).
+4) In project options' parameters tab, replace the linker parameters with this parameter: --def export.def
+5) Compile the project and test if it works in BVE.
+
+There may be an easier way of exporting the function names correctly. Let me know if you know one.
+
+
+
+Source code explanation and comments:
+
+
+atsplugin.h
+atsplugin.cpp
+
+The header file is the standard Mackoy plugin header with some additional stuff like includes for the other headers and global variable definitions.
+
+The code file implements all the functions defined in the header. Most plugin features except the simplest ones are implemented in the other code files in a modular fashion, and the functions in this file usually call the functions in the other files that implement the features.
+
+All "modules" have an initialization function, destroy function (for freeing memory), and usually a function that is called every frame from the atsplugin.cpp elapse() -function. In addition there can be event handlers, triggered by some other event function from the atsplugin.cpp. The initialization and destroying functions are designed so that while the module is reset, the destroy function can safely be called first, and the init afterwards.
+
+I think there was some kind of bug or unexpected behaviour in the calling of the plugin init and destroy functions by the BVE main program. This is why I made is so that when BVE calls the Initialize() or SetVehicleSpec() -functions, all the plugin "modules" are reset to ensure proper functionality.
+
+To add a module do the following:
+1) Create proper header and code files for the module.
+2) Create init and destroy functions for the module.
+3) Add a function call to the destroy function in the atsplugin.cpp's Dispose() -function.
+4) Add function calls to first destroy and then initialize the module in the atsplugin.cpp's Initialize() -function.
+5) Create functions that implement the module functionality, and add calls to them in atsplugin.cpp.
+
+
+
+
+
+confload.h
+confload.cpp
+
+Configuration file loading and attributes parsing into variables is done here when the plugin is loaded. The start of confload.cpp contains some code to mimic the file operations provided by stdio library, as these are IMHO simpler to use than Windows' equivalents.
+
+All the attribute strings are defined in the code file, and the enumeration to assign each of them a unique id in the header file. To access an attribute, index the global gOpts -variable with the attribute id. Each attribute is represented as PLUGIN_OPTION struct. The next -field of each struct points to the next struct if more than one value has been defined in the configuration file, using the comma separator. The next -field is NULL for the last (or only) value of an attribute.
+
+To add more attributes do the following:
+1) Add the string to the list of attribute strings.
+2) Add an id to the enumeration in the header file. The ids must be in the same order as the equivalent strings in the code file. The last element in the enumeration must be NUM_PLUGIN_OPTIONS which tells the total number of ids/attributes.
+3) Set a default value for the attribute in the code file's SetDefaults() function.
+4) You should now be able to successfully write the attribute in the configuration file and assign it one or more values, and access these values by indexing the gOpts -variable appropriately.
+
+
+
+
+
+defs.h
+
+This header file contains some useful constants. When operating the reverser, power or brakes, you should use the constants defined here: RVR_FORWARDS, PWR_MAX, BRK_RELEASE etc.
+
+Also the beacon types and signal interpretation are defined here. These are the constants starting with BCN_ and the constants CLEAR_SIGNAL_RANGE_BASE and DANGER_SIGNAL_RANGE_LIMIT. Leave these alone, to keep the plugin somewhat standard! We don't want to end up in a situation where different plugins react differently on same beacon types. For the same reason you should be careful when planning new beacon types, to not overlap with any existing ones. If you plan to add new beacon types to your plugin, please inform all the other plugin programmers about your plans. Of course, if your plugin is intended for very narrow and specialized use, there's no need to do this.
+
+
+
+
+
+tools.h
+tools.cpp
+
+These files contain two useful tools for creating plugin features. The indicator struct and the related functions are actually not so useful as they're a bit cumbersome, and are not widely used in the current implementation of the OS_ATS1.3 plugin.
+
+To provide a fairly easy use of timed events, a Timer variable is provided. The difficulty in timing events accurately is that the Time -variable of the ATS_VEHICLESTATE struct naturally leaps an unexpected number of milliseconds each frame. To time e.g. one second from one moment to another, you can use the Timer variable as follows:
+
+//initialize timer somewhere
+Timer my_timer = TIMER_OFF;
+
+//this is called every frame
+if(we_want_to_start_timing) {
+  ResetTimer(my_timer);
+} else if(my_timer != TIMER_OFF && tOn(my_timer, gState.Time, 1000)) {
+  //timer is on, and at least 1000ms have passed since it was reset
+  TriggerEvent();
+  my_timer = TIMER_OFF;
+}
+
+The tOn -function can be used for determining if a certain number of milliseconds have passed since a particular timer was last reset. The first parameter is the timer, the second parameter is current time (this is always gState.Time), and the third parameter is the interval in milliseconds.
+
+
+
+
+
+traincontrol.h
+traincontrol.cpp
+
+A lot of features want to "have their say" about the position of the reverser, power notch and brake notch. For example think of an (unlikely) situation where you as the driver want reverser forwards and maximum power notch. At the same time you hit a powerless section, and power must not have an effect (the powercontrol feature secretly sets power to neutral). A safety device hits on and applies maximum service brake, while by chance another safety device is also triggered and wants to apply emergency brake. Which setting for the power and brake notch should be applied?
+
+To select correct reverser, power and brake notches in all situations, these must not be operated directly through the ATS_HANDLES struct, but through the three OperateReverser /Power /Brake -functions implemented in these files. The first parameter for all of the function is the setting/notch which you wish to apply (use the constants from the defs.h here, where appropriate!), and the second parameter is a boolean which indicates whether this setting is to be applied (locked) or unapplied (released). When you lock a particular setting, you must release it later on, or the setting is jammed. Releasing more times than locking yields opposite results.
+
+Priority order (decreasing) for reverser: neutral, forwards, backwards. Priority order (decreasing) for power: power off ... full power. Priority order (decreasing) for brakes: Emergency brake, max service brake ... brake released.
+
+The priorities mean that if some part of the plugin has locked reverser forwards, and some other part of the plugin locks reverser neutral, the reverser is set to neutral. The reverser is returned forwards when the neutral locking is released, unless some third part of the plugin has also locked the neutral position, or the forwards lock has been released in the mean time. The system is the same for power and brake notches. You should notice now that stopping (or slowing down the acceleration of) the train has priority over accelerating or rolling the train freely.
+
+The driver's handle operations are implemented with the functions SetReverserHandle(), SetPowerHandle() and SetBrakeHandle().
+
+
+
+
+
+br_safety.h
+br_safety.cpp
+
+AWS and TPWS. BRSafety() is called every frame.
+
+
+
+
+
+misc.h
+misc.cpp
+
+Travel/odometer, door indicators, klaxonindicator and custom indicators. RunMiscellaneous() called every frame.
+
+
+
+
+
+powercontrol.h
+powercontrol.cpp
+
+Electric train power gap behaviour and DRA. PowerControl() called every frame.
+
+
+
+
+
+speedcontrol.h
+speedcontrol.cpp
+
+Overspeed safety device. CheckSpeed(speed) called every frame.
+
+
+
+
+
+traction.h
+traction.cpp
+
+Traction modeling: overheating, fuel, ammeter, mechanical transmission, steam locomotive feature etc. RunTraction() called every frame.
+
+
+
+
+
+vigilance.h
+vigilance.cpp
+
+Vigilance / EB / Dead man's handle safety device. CheckVigilance() called every frame.
+
+
+
+
+
+windshield.h
+windshield.cpp
+
+Windshield wiper and raindrops. AnimateWindshield() called every frame.

@@ -1,0 +1,17 @@
+EXPORTS
+Load = _Z4Loadv@0 @ 1
+Dispose = _Z7Disposev@0 @ 2
+GetPluginVersion = _Z16GetPluginVersionv@0 @ 3
+SetVehicleSpec = _Z14SetVehicleSpec15ATS_VEHICLESPEC@20 @ 4
+Initialize = _Z10Initializei@4 @ 5
+Elapse = _Z6Elapse16ATS_VEHICLESTATEPiS0_@48 @ 6
+SetPower = _Z8SetPoweri@4 @ 7
+SetBrake = _Z8SetBrakei@4 @ 8
+SetReverser = _Z11SetReverseri@4 @ 9
+KeyDown = _Z7KeyDowni@4 @ 10
+KeyUp = _Z5KeyUpi@4 @ 11
+HornBlow = _Z8HornBlowi@4 @ 12
+DoorOpen = _Z8DoorOpenv@0 @ 13
+DoorClose = _Z9DoorClosev@0 @ 14
+SetSignal = _Z9SetSignali@4 @ 15
+SetBeaconData = _Z13SetBeaconData14ATS_BEACONDATA@16 @ 16

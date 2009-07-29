@@ -1,0 +1,28 @@
+HTML { background-color: black; font-family: Times New Roman, serif; }
+BODY { margin-left: 10%; margin-right: 10%; background-color: white; border: thick solid #EEE; }
+
+H1 { padding: 0.2em 0.4em; font-family: Arial, sans-serif; }
+H2 { padding: 0.1em 0.4em; margin-top: 2em; font-family: Arial, sans-serif; border-bottom: 2px dotted #EEE; }
+H3 { margin-top: 2em; margin-bottom: 0.5em; padding: 0.2em 0.4em; font-family: Arial, sans-serif;
+    border-top: 1px solid black; border-bottom: 1px solid black; background-color: #EEE; }
+H4 { padding: 0.2em 0.4em; font-family: Arial, sans-serif; }
+CODE { font-size: 120%; font-weight: bold; color: #A00; }
+
+A, A:visited, A:active { font-family: Verdana, Arial, sans-serif; color: blue; }
+A:hover { color: red; }
+
+DIV.attribute { margin-top: 1em; margin-left: 0.6em; border-top: 1px solid silver; }
+DIV.attribute>CODE { display: block; margin-bottom: -1.2em; }
+DIV.attribute P { margin: 0.1em 2em 0.1em 16em; text-align: left; }
+
+DIV.oldattrib { background-color: silver; }
+
+P { padding: 0.2em 1em; text-align: justify; }
+P.copyright { text-align: right; font-size: 80%; margin: 2em 0; }
+
+TABLE.keylist { width: 50%; margin: 0.5em 2em; padding: 0.2em; border: 1px solid black; }
+TABLE.beaconlist { width: 98%; margin: 0.5em 1%; padding: 0.2em; font-family: Arial, sans-serif;
+    font-size: 80%; border: 1px solid black; }
+TABLE TH { text-align: left; font-weight: bold; border-bottom: 1px solid black; }
+TABLE TD { padding: 0.1em 0.4em; text-align: left; font-weight: normal;
+    background-color: #EEE; border-bottom: 1px solid white; }

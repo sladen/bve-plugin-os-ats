@@ -1,0 +1,111 @@
+<html>
+<head>
+    <title>Driving the OS_ATS plug-in demo trains</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+<a href="index.html">&lt;&lt; Back to index</a>
+
+<h1>Driving the OS_ATS plug-in demo trains</h1>
+<p>
+The plug-in package comes with three demo trains: a "modern" EMU,
+an old DMU with 4-speed mechanical transmission, and a steam
+locomotive. Each of these has a simple imitation of the controls
+and characteristics of the traction type. Getting the demo trains
+moving can be hard without instructions.
+</p>
+
+
+<h4>Preparing to start (common for all three)</h4>
+<ol>
+<li>Move reverser forwards</li>
+<li>Acknowledge all safety devices if triggered by the reverser</li>
+<li>Release brakes fully</li>
+<li>Wait for doors to close</li>
+<li>Check that brakes are released</li>
+</ol>
+
+<h4>Electric</h4>
+<ol>
+<li>Check that you didn't set the reminder device on by accident</li>
+<li>Set throttle to neutral</li>
+<li>Apply throttle, and train should start moving</li>
+</ol>
+<p>
+When moving, monitor motor temperature, and decrease throttle if overheat lamp lits.
+</p>
+
+<h4>Diesel</h4>
+<ol>
+<li>Change to gear 1, or set automatic gearbox on</li>
+<li>Apply throttle</li>
+</ol>
+<p>
+Monitor engine temperature when moving, and shift gears if RPM is too high or too low.
+Note that you can only shift gears when throttle is at neutral, and that you can also
+shift gears when the automatic gearbox is on, unless the auto gearbox insists on
+setting a particular gear.
+</p>
+
+<h4>Steam</h4>
+<ol>
+<li>Set cutoff to 75% forwards, or set automatic cutoff on</li>
+<li>Apply throttle</li>
+</ol>
+<p>
+You must begin to slowly decrease the cutoff as the speed increases, to maintain
+acceleration. If boiler water level seems to be getting too low, set injector on.
+If there's a fair amount of water in the boiler, and boiler pressure is getting
+low, make sure injector is off. You can't operate cutoff and injector if
+automatic cutoff is on.
+</p>
+
+<h4>When moving</h4>
+<p>
+Depending on the safety system installed in the train, you may need to acknowledge
+alarms triggered by signals, or cancel the vigilance device if you don't touch the
+controls for a certain period. When driving in rain, the windshield starts to
+gather drops of water. Use the windshield wiper to do away with them.
+</p>
+<p>
+Exact behaviour of AWS and TPWS safety systems and steam locomotives is not explained
+here, and more information can be found over the Internet for example. However, short
+descriptions are given in the features section of this instructions manual.
+</p>
+
+
+<h3>Special keys</h3>
+
+<div style="float: right; width: 45%;">
+<p>
+The table on right shows the keys for the demo trains. For other trains the keys
+may be different. In fact, BVE allows you to customize your keys. The default
+column shows the BVE default key assignments, which'll probably work if you
+haven't done any changes. If you have, you should be able to deduct the correct
+key by the middle column information.
+</p>
+
+<p class="copyright">Copyright 2004, 2005 Oskari Saarekas</p>
+</div>
+
+<table cellpadding="0" cellspacing="0" class="keylist">
+<tr> <th>Function</th>              <th>Ats key</th>    <th>Default</th> </tr>
+<tr> <td>AWS acknowledge</td>       <td>S</td>      <td>Space</td> </tr>
+<tr> <td>TPWS acknowledge</td>      <td>S</td>      <td>Space</td> </tr>
+<tr> <td>TPWS override</td>         <td>B2</td>     <td>End</td> </tr>
+<tr> <td>Vigilance acknowledge</td> <td>A2</td>     <td>Delete</td> </tr>
+<tr> <td>Reminder toggle</td>       <td>A1</td>     <td>Insert</td> </tr>
+<tr> <td>Wiper on</td>              <td>C1</td>     <td>Page Up</td> </tr>
+<tr> <td>Wiper off</td>             <td>C2</td>     <td>Page Down</td> </tr>
+<tr> <td>Gear shift up</td>         <td>B1</td>     <td>Home</td> </tr>
+<tr> <td>Gear shift down</td>       <td>B2</td>     <td>End</td> </tr>
+<tr> <td>Cutoff increase</td>       <td>C1</td>     <td>Page Up</td> </tr>
+<tr> <td>Cutoff decrease</td>       <td>C2</td>     <td>Page Down</td> </tr>
+<tr> <td>Injector toggle</td>       <td>B2</td>     <td>End</td> </tr>
+<tr> <td>Automatic gear/cutoff</td> <td>D</td>      <td>2</td> </tr>
+</table>
+
+
+</body>
+</html>

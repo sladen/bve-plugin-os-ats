@@ -1,0 +1,918 @@
+<html>
+<head>
+    <title>Configuring the OS_ATS plug-in</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+<a href="index.html">&lt;&lt; Back to index</a>
+
+<h1>Configuring the OS_ATS plug-in</h1>
+
+<p>
+To create a train that uses the plug-in you can start by making a copy
+of one of the demo trains (the one that's closest to what you're after),
+and modify the files (the ones described below in particular). Alternatively,
+you could start from nothing, or install the plug-in to an existing train
+by copying the <code>os_ats1.dll</code> to the train folder. All the
+<code>os_ats1.dll</code> files in the demo trains are similar, so it doesn't
+matter which one you copy. In addition you can write the <code>os_ats1.cfg</code>
+configuration file from scratch, or copy and modify one of the demo trains'
+config files.
+</p>
+<p>
+Configuration of the plug-in is done by a configuration file
+named <code>os_ats1.cfg</code>, which is placed in the same folder with
+the plug-in itself (<code>os_ats1.dll</code>). To keep the plug-in simple,
+the mechanism for reading the configuration is picky. <code>Warning!</code>
+Invalid values are not detected and may crash the plug-in and BVE +
+Windows along with it.
+</p>
+<p>
+The attributes must be written each on its own line, with absolutely no
+spaces. The file can have empty lines though, and comment lines starting
+with the semicolon character. No capitals must be used, only lower case
+letters are recognized. Only integers are accepted as attribute values.
+Where an attribute can have multiple values, the values are separated with
+a comma. <code>[list]</code> signifies that multiple values are allowed,
+and <code>[pair]</code> that the attribute can have two values.
+</p>
+<p>
+In the text below you'll notice many 'panel indices', 'sound indices' and
+'keys'. All the panel indices refer to the AtsNNN subject in the
+<code>Panel2.cfg</code> train cab configuration file syntax, where NNN is the
+actual index value. Sound index refers to the ID value of each sound defined
+in the <code>[Ats]</code> section of the <code>Sound.cfg</code> file of
+your train. Panel and sound indices are limited to 0 - 255. For key indices,
+see the Ats keys section of BVE's key assignments option window. Ats_S key
+is index 0, and others follow in the same order as displayed in BVE.
+</p>
+
+
+<h2>List of attributes</h2>
+
+
+
+<h3>Safety systems</h3>
+
+<div class="attribute">
+<code>system=</code>
+<p>Selects the type of safety system.</p>
+<p><code>0 (default)</code> - None</p>
+<p><code>1</code> - British AWS</p>
+<p><code>2</code> - British AWS + TPWS</p>
+<p><code>3</code> - Trainstop (LU)</p>
+</div>
+
+<div class="attribute">
+<code>awsindicator=</code>
+<p>Sets the panel index for the visual AWS warning indicator.</p>
+<p><code>-1 (default)</code> - No indicator</p>
+</div>
+
+<div class="attribute">
+<code>awswarningsound=</code>
+<p>Sets the AWS alarm sound index.</p>
+<p><code>-1 (default)</code> - No sound</p>
+</div>
+
+<div class="attribute">
+<code>awsclearsound=</code>
+<p>Sets the AWS signal clear sound index.</p>
+<p><code>-1 (default)</code> - No sound</p>
+</div>
+
+<div class="attribute">
+<code>awsacknowledgekey=[pair]</code>
+<p>Defines the AWS acknowledge key. An optional second value defines
+the panel index of the button in the cab.</p>
+<p><code>Default 0</code></p>
+</div>
+
+<div class="attribute">
+<code>awsminspeed=</code>
+<p>When speed is under this value, AWS device warns on every magnet.</p>
+<p><code>Default 0</code></p>
+</div>
+
+<div class="attribute">
+<code>awsdelay=</code>
+<p>Defines the AWS delay (milliseconds) during which the driver must
+acknowledge the warning to prevent the emergency braking.</p>
+<p><code>Default 3000</code></p>
+</div>
+
+<div class="attribute">
+<code>awsindicatorappear=</code>
+<p>Defines when the AWS warning indicator lights up.</p>
+<p><code>0 (default)</code> - When the warning is acknowledged</p>
+<p><code>1</code> - When the warning is given</p>
+</div>
+
+<div class="attribute">
+<code>awsbrakecancel=</code>
+<p>Defines if and how any forced braking by AWS can be cancelled.</p>
+<p><code>0 (default)</code> - Braking cancellable after coming to a halt</p>
+<p><code>1</code> - Braking cancellable "beforehand", automatic brake release when stopped</p>
+<p><code>2</code> - Immediate brake release at any time if cancelled</p>
+</div>
+
+<div class="attribute">
+<code>tpwsindicator=[pair]</code>
+<p>Sets the panel index of the visual TPWS/Trainstop brake demand indicator.
+An optional second value defines the blinking interval of the light (ms).</p>
+<p><code>-1 (default)</code> - No indicator</p>
+</div>
+
+<div class="attribute">
+<code>tpwsindicator2=[pair]</code>
+<p>Sets the panel index of the TPWS trainstop override indicator.</p>
+<p><code>-1 (default)</code> - No indicator</p>
+</div>
+
+<div class="attribute">
+<code>tpwsindicator3=</code>
+<p>Sets the panel index for the rest of the TPWS lights (used by the startup test).</p>
+<p><code>-1 (default)</code> - No additional indicators</p>
+</div>
+
+<div class="attribute">
+<code>tpwswarningsound=</code>
+<p>Sets the TPWS/Trainstop alarm sound index.</p>
+<p><code>-1 (default)</code> - No sound</p>
+</div>
+
+<div class="attribute">
+<code>tpwsresetkey=</code>
+<p>Defines the TPWS/Trainstop reset (forced braking cancel) key.</p>
+<p><code>Default 0</code></p>
+</div>
+
+<div class="attribute">
+<code>tpwsoverridekey=</code>
+<p>Defines the TPWS/Trainstop override key.</p>
+<p><code>-1 (default)</code> - No override</p>
+</div>
+
+<div class="attribute">
+<code>tpwsstopdelay=</code>
+<p>Defines the TPWS/Trainstop delay (seconds) before the brakes can be/are released after
+coming to a full stop under forced braking.</p>
+<p><code>Default 60</code></p>
+</div>
+
+<div class="attribute">
+<code>tpwsoverridelifetime=</code>
+<p>Defines the TPWS/Trainstop override delay (seconds) before the
+override is automatically cancelled.</p>
+<p><code>Default 60</code></p>
+</div>
+
+<div class="attribute">
+<code>tpwsbrakecancel=</code>
+<p>Defines if and how any forced braking by TPWS/Trainstop can be cancelled.</p>
+<p><code>0 (default)</code> - Braking cancellable after stop delay over</p>
+<p><code>1</code> - Braking cancellable "beforehand", automatic brake release after delay</p>
+<p><code>2</code> - Immediate brake release at any time if cancelled</p>
+</div>
+
+<div class="attribute">
+<code>startuptest=</code>
+<p>Defines whether the AWS and TPWS start up tests are performed once you set
+the reverser to non-neutral position for the first time.</p>
+<p><code>0 (default)</code> - No</p>
+<p><code>1</code> - AWS</p>
+<p><code>2</code> - AWS and TPWS</p>
+</div>
+
+
+
+<h3>Overspeed control</h3>
+
+<div class="attribute">
+<code>overspeedcontrol=</code>
+<p>Defines whether the train has an overspeed warning / safety device.
+The device monitors a fixed maximum speed of the train, not e.g. one
+defined by the route.</p>
+<p><code>0 (default)</code> - No</p>
+<p><code>1</code> - Yes</p>
+</div>
+
+<div class="attribute">
+<code>warningspeed=</code>
+<p>When the speed (kph) of the train exceeds this value, the warning indicator
+lights up and the continuous warning sound starts to play.</p>
+<p><code>-1 (default)</code> - No warning</p>
+</div>
+
+<div class="attribute">
+<code>overspeed=</code>
+<p>When the speed (kph) of the train exceeds this value, brakes are
+applied to the full (not emg).</p>
+<p><code>1000 (default)</code> - No automatic braking</p>
+</div>
+
+<div class="attribute">
+<code>safespeed=</code>
+<p>When the device has applied the brakes upon speeding, the brakes
+are released when the speed drops to (or below) this value (kph).</p>
+<p><code>0 (default)</code> - Train is halted completely before allowing to proceed</p>
+</div>
+
+<div class="attribute">
+<code>overspeedindicator=</code>
+<p>Sets the panel index of the overspeed indicator.</p>
+<p><code>-1 (default)</code> - No indicator</p>
+</div>
+
+<div class="attribute">
+<code>overspeedalarm=</code>
+<p>Sets the sound index of the overspeed alarm sound.</p>
+<p><code>-1 (default)</code> - No sound</p>
+</div>
+
+
+
+<h3>Vigilance device / EB / Dead man's brake</h3>
+
+<div class="attribute">
+<code>vigilance=</code>
+<p>Defines whether the train has a vigilance device or not.</p>
+<p><code>0 (default)</code> - No vigilance device</p>
+<p><code>1</code> - Train has vigilance device</p>
+</div>
+
+<div class="attribute">
+<code>vigilancelamp=</code><p>
+Sets the panel index of the vigilance lamp.</p>
+<p><code>-1 (default)</code> - No lamp</p>
+</div>
+
+<div class="attribute">
+<code>vigilancealarm=</code><p>
+Sets the sound index of the vigilance alarm sound.</p>
+<p><code>-1 (default)</code> - No sound</p>
+</div>
+
+<div class="attribute">
+<code>vigilancekey=</code>
+<p>Defines the key used for cancelling the device.</p>
+<p><code>Default 2</code></p>
+</div>
+
+<div class="attribute">
+<code>vigilanceinterval=[list]</code><p>
+Interval at which the device requires attention (milliseconds).
+The list defines the intervals for each throttle notch. If the list
+is shorter than the number of possible throttle notches, the last value
+will be used for all undefined notches. The list starts from neutral throttle.</p>
+<p><code>Default 60000</code></p>
+</div>
+
+<div class="attribute">
+<code>vigilancedelay1=</code><p>
+Delay (milliseconds) before the alarm sound goes off.</p>
+<p><code>Default 3000</code></p></div>
+
+<div class="attribute">
+<code>vigilancedelay2=</code><p>
+Delay (milliseconds) before brakes apply, after the alarm has gone off. <code>Default 3000</code>
+</p></div>
+
+<div class="attribute">
+<code>independentvigilance=</code><p>
+Defines whether other controls (such as throttle, brakes, other ATS keys etc.)
+reset the timer or not.</p>
+<p><code>0 (default)</code> - Other controls reset the timer</p>
+<p><code>1</code> - Other controls do not have an effect on the device</p>
+</div>
+
+<div class="attribute">
+<code>vigilanceinactivespeed=</code><p>
+When the speed (kph) of the train is equal or less than this value, the vigilance
+devices becomes inactive.</p>
+<p><code>-2</code> - Device is always active, except when reverser at neutral</p>
+<p><code>-1</code> - Device is always active</p>
+<p><code>0 (default)</code> - Device inactive when train stopped</p>
+</div>
+
+<div class="attribute">
+<code>vigilancecancellable=</code><p>
+Defines whether the brakes can be released before coming to a full stop.</p>
+<p><code>0 (default)</code> - Brakes can not be released</p>
+<p><code>1</code> - Braking sequence can be cancelled</p>
+</div>
+
+<div class="attribute">
+<code>vigilanceautorelease=</code><p>
+Defines whether the brakes are automatically released upon coming to a full stop.</p>
+<p><code>0 (default)</code> - No</p>
+<p><code>1</code> - Yes</p>
+</div>
+
+
+
+<h3>Power, Reverser and control</h3>
+
+<div class="attribute">
+<code>powergapbehaviour=</code><p>
+Defines the behaviour of an electric train when the pantographs / pickup shoes
+are on an isolated, non-electrified section.</p>
+<p><code>0 (default)</code> - No effect (for nonelectric trains)</p>
+<p><code>1</code> - Max. throttle is reduced depending on how many of the total number
+of current pickup points are on an isolated section</p>
+<p><code>2</code> - Throttle inactive when <i>any</i> of the pickup points are on an isolated section</p>
+<p><code>3</code> - Throttle inactive when <i>all</i> of the pickup points are on an isolated section</p>
+</div>
+
+<div class="attribute">
+<code>powerpickuppoints=[list]</code><p>
+Defines the positions of the pickup points (pantographs or pickup shoes).
+The positions are in metres from the front of the train.</p>
+<p><code>Default 0</code></p>
+</div>
+
+<div class="attribute">
+<code>powerindicator=</code>
+<p>Sets the panel index of the power on/off indicator.</p>
+<p><code>-1 (default)</code> - No indicator</p>
+</div>
+
+<div class="attribute">
+<code>doorpowerlock=</code><p>
+Defines whether throttle is forced to off when stopped at a station (doors open).</p>
+<p><code>0 (default)</code> - No</p>
+<p><code>1</code> - Yes</p>
+</div>
+
+<div class="attribute">
+<code>doorapplybrake=</code><p>
+Defines whether the brakes are applied while stopped at a station (doors open).</p>
+<p><code>0 (default)</code> - No</p>
+<p><code>1</code> - Yes, full normal brake</p>
+<p><code>2</code> - Yes, emergency brake</p>
+</div>
+
+<div class="attribute">
+<code>tractioninterlock=</code><p>
+If traction interlock is in use, throttle must be set to neutral after any
+emergency brake apply before power is effectively applied again.</p>
+<p><code>0 (default)</code> - Not used</p>
+<p><code>1</code> - In use</p>
+</div>
+
+<div class="attribute">
+<code>neutralrvrbrake=</code><p>
+Defines whether the brakes are applied when reverser is set to neutral.</p>
+<p><code>0 (default)</code> - No</p>
+<p><code>1</code> - Yes, full normal brake</p>
+<p><code>2</code> - Yes, emergency brake</p>
+</div>
+
+<div class="attribute">
+<code>reversercontrol=</code><p>
+Defines the behaviour of the reverser when used at speed.</p>
+<p><code>0 (default)</code> - BVE default</p>
+<p><code>1</code> - No effect at speed (except at neutral)</p>
+<p><code>2</code> - Use at speed breaks the train's transmission</p>
+</div>
+
+<div class="attribute">
+<code>reverserindex=</code><p>
+Sets the panel index of the reverser lever.</p>
+<p><code>-1 (default)</code> - No lever</p>
+</div>
+
+<div class="attribute">
+<code>effectivervrindex=</code><p>
+Sets the panel index of the direction indicator. The direction of the train
+is not necessarily the same as the reverser lever setting.</p>
+<p><code>-1 (default)</code> - No indicator</p>
+</div>
+
+<div class="attribute">
+<code>reminderindicator=</code><p>
+Sets the panel index of the driver's reminder appliance (DRA).
+DRA is a manual switch which prevents the driver from accelerating
+when the switch is on.</p>
+<p><code>-1 (default)</code> - No indicator</p>
+</div>
+
+<div class="attribute">
+<code>reminderkey=</code><p>
+Defines the key to toggle driver's reminder appliance on/off.</p>
+<p><code>-1 (default)</code> - No DRA</p>
+</div>
+
+
+
+<h3>Windshield wiper and drops</h3>
+
+<p>
+Note: To make the raindrops fully synchronized with the wiper movement,
+please use the drop creator tool at
+<a href="http://koti.mbnet.fi/lopomo/trainsoft/droptool.php">http://koti.mbnet.fi/lopomo/trainsoft/droptool.php</a>,
+which creates the code for the <code>Panel2.cfg</code> panel configuration file.
+</p>
+
+<div class="attribute">
+<code>wiperindex=</code><p>
+Sets the panel index of the windshield wiper.</p>
+<p><code>-1 (default)</code> - No wiper</p>
+</div>
+
+<div class="attribute">
+<code>wiperrate=</code><p>
+Sets the approximate sweep time of the wiper from one side to another (milliseconds).
+<code>Default 1000</code></p>
+</div>
+
+<div class="attribute">
+<code>wiperholdposition=</code>
+<p>Defines the default position of the wiper (when the wiper does not move).</p>
+<p><code>0 (default)</code> - Far left</p>
+<p><code>100</code> - Far right</p>
+</div>
+
+<div class="attribute">
+<code>wiperdelay=</code><p>
+Sets the delay (milliseconds) of the wiper staying at the side of the windshield when
+operating in interrupted mode.</p>
+<p><code>0 (default)</code> - No interrupted mode</p>
+</div>
+
+<div class="attribute">
+<code>wiperonkey=</code><p>
+Defines the key for turning on the wiper. <code>Default 5</code></p>
+</div>
+
+<div class="attribute">
+<code>wiperoffkey=</code><p>
+Defines the key for turning off the wiper. <code>Default 6</code></p>
+</div>
+
+<div class="attribute">
+<code>wipersound=[pair]</code>
+<p>Sets the wiper sound index. The sound plays when the wiper starts
+moving from the hold position, or changes direction at the hold position.
+If an optional second value (any value) is set, the sound plays every
+time the wiper starts moving, or changes direction.</p>
+<p><code>-1 (default)</code> - No sound</p>
+</div>
+
+<div class="attribute">
+<code>dropstartindex=</code><p>
+Sets the panel start index for the drops. <code>Default 0</code></p>
+</div>
+
+<div class="attribute">
+<code>numberofdrops=</code><p>
+Defines the max. number of drops on the windshield.
+<code>Default 0</code></p>
+</div>
+
+<div class="attribute">
+<code>dropsound=[pair]</code>
+<p>Sets the raindrop sound index. The sound is played every
+time a new drop appears on the windshield. An optional second
+value defines how many different sounds are used. For example,
+if three different sounds are used, the indices for the two
+additional sounds are +1 and +2 in addition to the first
+defined sound index.</p>
+<p><code>-1 (default)</code> - No sound</p>
+</div>
+
+
+
+<h3>Miscellaneous</h3>
+
+<div class="attribute">
+<code>travelmetermode=</code>
+<p>Sets the distance unit used by the travel meter.</p>
+<p><code>-1 (default)</code> - No travel meter</p>
+<p><code>0</code> - Kilometres</p>
+<p><code>1</code> - Miles</p>
+</div>
+
+<div class="attribute">
+<code>travelmeter100=</code>
+<p>Sets the panel index of the travel meter (hundred kms/mis).</p>
+<p><code>-1 (default)</code> - No meter of this accuracy</p>
+</div>
+
+<div class="attribute">
+<code>travelmeter10=</code>
+<p>Sets the panel index of the travel meter (ten kms/mis).</p>
+<p><code>-1 (default)</code> - No meter of this accuracy</p>
+</div>
+
+<div class="attribute">
+<code>travelmeter1=</code>
+<p>Sets the panel index of the travel meter (kms/mis).</p>
+<p><code>-1 (default)</code> - No meter of this accuracy</p>
+</div>
+
+<div class="attribute">
+<code>travelmeter01=</code>
+<p>Sets the panel index of the travel meter (one tenth kms/mis).</p>
+<p><code>-1 (default)</code> - No meter of this accuracy</p>
+</div>
+
+<div class="attribute">
+<code>travelmeter001=</code>
+<p>Sets the panel index of the travel meter (one hundredth kms/mis).</p>
+<p><code>-1 (default)</code> - No meter of this accuracy</p>
+</div>
+
+<div class="attribute">
+<code>doorindicator=[pair]</code>
+<p>Sets the panel index of the door state indicator for both doors.
+The first value is the index of the left side door, and the second
+value is the index of the right side door. Note that the indicators
+are on when the doors are open, as opposed to the default BVE door
+indicator which is on when the doors are closed.</p>
+<p><code>-1 (default)</code> - No indicators</p>
+</div>
+
+<div class="attribute">
+<code>klaxonindicator=[list]</code>
+<p>Sets the panel index of the whistle indicator. The first value
+is the actual index. The second value is the duration (ms) that the
+indicator is on when the primary horn has been sounded. The third
+value (optional) is the same for the secondary horn.</p>
+<p><code>-1 (default)</code> - No indicator</p>
+</div>
+
+<div class="attribute">
+<code>customindicators=[list]</code>
+<p>Defines one or more 'decorational' on/off indicators. The list
+is a list of value pairs, the first value of the pair being the
+key that controls the indicator, and the second value the panel index.</p>
+<p><code>-1 (default)</code> - No indicators</p>
+</div>
+
+
+
+<h3>Traction modeling</h3>
+
+<div class="attribute">
+<code>traction=</code>
+<p>Defines the type of traction modeling.</p>
+<p><code>0 (default)</code> - Nothing special (electric)</p>
+<p><code>1</code> - Steam (see below and steam traction attributes)</p>
+<p><code>2</code> - Diesel (see below for attributes)</p>
+</div>
+
+<div class="attribute">
+<code>automatic=</code>
+<p>Defines the key for toggling automatic gearbox / cutoff.</p>
+<p><code>-1 (default)</code> - No automatic gearbox / cutoff</p>
+</div>
+
+<div class="attribute">
+<code>automaticindicator=</code>
+<p>Defines the panel index of the automatic gearbox / cutoff indicator</p>
+<p><code>-1 (default)</code> - No indicator</p>
+</div>
+
+<div class="attribute">
+<code>ammeter=</code>
+<p>Sets the panel index of the ammeter.</p>
+<p><code>-1 (default)</code> - No ammeter</p>
+</div>
+
+<div class="attribute">
+<code>ammetervalues=[list]</code>
+<p>Defines the ammeter values for each throttle notch.
+If the list is shorter than the number of possible throttle
+notches, the last value will be used for all undefined
+notches. The list starts from neutral throttle.</p>
+<p><code>Default 0</code></p>
+</div>
+
+<div class="attribute">
+<code>fuelconsumption=[list]</code>
+<p>Defines the fuel consumption for Diesel trains
+(fuel units in seconds). The list defines the consumption
+for each throttle notch. If the list is shorter than the
+number of possible throttle notches, the last value will be
+used for all undefined notches. The list starts from neutral
+throttle.</p>
+<p><code>Default 0</code></p>
+</div>
+
+<div class="attribute">
+<code>fuelcapacity=</code>
+<p>Defines the size of the fuel / water tank.</p>
+<p><code>Default 1</code></p>
+</div>
+
+<div class="attribute">
+<code>fuelstartamount=</code>
+<p>Defines the amount of fuel / water when the simulation starts.</p>
+<p><code>Default 1</code></p>
+</div>
+
+<div class="attribute">
+<code>fuelfillspeed=</code>
+<p>Defines the speed (fuel units per second) at which the
+fuel / water tank is filled when the train is stopped at a fueling point.</p>
+<p><code>Default 50</code></p>
+</div>
+
+<div class="attribute">
+<code>fuelindicator=</code>
+<p>Sets the panel index for the fuel / water tank indicator. If an optional
+second value is set, the indicator will become a "warning lamp" instead of "needle".
+The second value will be interpreted as a percentage. When there is more
+fuel left than the percentage defines, the lamp stays off.</p>
+<p><code>-1 (default)</code> - No indicator</p>
+</div>
+
+<div class="attribute">
+<code>fuelfillindicator=</code>
+<p>Sets the panel index for the fuel / water tank fill indicator.
+The indicator is on when the train is being fueled.</p>
+<p><code>-1 (default)</code> - No indicator</p>
+</div>
+
+<div class="attribute">
+<code>gearratios=[list]</code>
+<p>Defines the "gear ratios" for each gear. The list also defines
+the number of gears. The engine RPM range is between nil and 1000.
+The RPM is speed (kph) times the "gear ratio" in use. For example,
+if "ratio" for first gear is 20, the maximum RPM is reached at
+speed 1000 / 20 = 50 kph.</p>
+<p><code>Default 0</code> - No gears</p>
+</div>
+
+<div class="attribute">
+<code>gearfadeinrange=[list]</code>
+<p>Defines the "fade in" of each gear. If the list is shorter
+than the number of gears, the last value will be used for the
+undefined gears. The "fade in" defines the RPM range starting
+from nil, where engine torque may be insufficient to achieve
+maximum performance. For example, if "fade in" is 400, the
+train will not accelerate very quickly when the RPM is under
+400.</p>
+<p><code>Default 0</code></p>
+</div>
+
+<div class="attribute">
+<code>gearfadeoutrange=[list]</code>
+<p>Defines the "fade out" of each gear. If the list is shorter
+than the number of gears, the last value will be used for the
+undefined gears. "Fade out" is similar to "fade in", but
+defines the ineffective RPM range near the upper limit of the
+RPM. Obviously "fade in" + "fade out" should not exceed 1000.
+In fact it would be best if the sum would be less than 1000.
+For example, if both "fade in" and "fade out" are 400, the
+optimal RPM range for the gear is 400 - 600.</p>
+<p><code>Default 0</code></p>
+</div>
+
+<div class="attribute">
+<code>gearindicator=</code>
+<p>Sets the panel index of the gear indicator.</p>
+<p><code>-1 (default)</code> - No gear indicator</p>
+</div>
+
+<div class="attribute">
+<code>gearupkey=</code>
+<p>Sets the key for changing to a higher gear.</p>
+<p><code>Default 3</code></p>
+</div>
+
+<div class="attribute">
+<code>geardownkey=</code>
+<p>Sets the key for changing to a lower gear.</p>
+<p><code>Default 4</code></p>
+</div>
+
+<div class="attribute">
+<code>gearchangesound=</code>
+<p>Defines the sound index of the gear change sound.</p>
+<p><code>-1 (default)</code> - No sound</p>
+</div>
+
+<div class="attribute">
+<code>gearloopsound=[pair]</code>
+<p>Defines the sound index of a looping sound which starts
+after having changed gear. The second value is the delay (ms)
+after changing gear before the sound starts. The sound will
+not play when neutral gear is selected.</p>
+<p><code>-1 (default)</code> - No sound</p>
+</div>
+
+<div class="attribute">
+<code>tachometer=</code>
+<p>Sets the panel index of the engine RPM gauge.</p>
+<p><code>-1 (default)</code> - No tachometer</p>
+</div>
+
+<div class="attribute">
+<code>heatingpart=</code>
+<p>Defines whether the train has a heating part.</p>
+<p><code>0 (default)</code> - No heating part</p>
+<p><code>1</code> - Heating part based on throttle</p>
+<p><code>2</code> - Heating part based on engine RPM</p>
+</div>
+
+<div class="attribute">
+<code>heatingrate=[list]</code>
+<p>Heating rate for each throttle notch or each 10% of RPM per second. If the list
+is shorter than the number of possible throttle notches or under 10, the last value
+will be used for all undefined notches. The list starts from neutral throttle / idle RPM.</p>
+<p><code>0 (default)</code> - Heating disabled</p>
+</div>
+
+<div class="attribute">
+<code>overheatwarn=</code>
+<p>Defines the threshold for the alarm.</p>
+<p><code>Default 0</code></p>
+</div>
+
+<div class="attribute">
+<code>overheat=</code>
+<p>Defines the point of overheating.</p>
+<p><code>Default 0</code></p>
+</div>
+
+<div class="attribute">
+<code>overheatresult=</code>
+<p>Defines what happens when overheating point is reached.</p>
+<p><code>0 (default)</code> - Nothing</p>
+<p><code>1</code> - Power is lost</p>
+</div>
+
+<div class="attribute">
+<code>thermometer=</code>
+<p>Sets the panel index of the thermometer.</p>
+<p><code>-1 (default)</code> - No thermometer</p>
+</div>
+
+<div class="attribute">
+<code>overheatindicator=</code>
+<p>Sets the panel index of the alarm indicator.</p>
+<p><code>-1 (default)</code> - No indicator</p>
+</div>
+
+<div class="attribute">
+<code>overheatalarm=</code>
+<p>Sets the sound index of the alarm sound.</p>
+<p><code>-1 (default)</code> - No sound</p>
+</div>
+
+
+
+<h3>Steam traction</h3>
+
+<div class="attribute">
+<code>cutoffmax=</code>
+<p>Defines the maximum cutoff (forwards). Must be greater than nil.</p>
+<p><code>Default 75</code></p>
+</div>
+
+<div class="attribute">
+<code>cutoffmin=</code>
+<p>Defines the minimum cutoff (backwards).</p>
+<p><code>Default -55</code></p>
+</div>
+
+<div class="attribute">
+<code>cutoffineffective=</code>
+<p>Defines the range from zero where the cutoff is ineffective.</p>
+<p><code>Default 15</code></p>
+</div>
+
+<div class="attribute">
+<code>cutoffratiobase=</code>
+<p>Defines the maximum speed (kph), where maximum cutoff is effective.</p>
+<p><code>Default 30</code></p>
+</div>
+
+<div class="attribute">
+<code>cutoffratio=</code>
+<p>Defines the ratio at which the ideal cutoff drops relative to speed (kph).
+The value given is divided by 10. For example, if the ratio is 5, the
+ideal cutoff drops by 1 when the speed increases by 2.</p>
+<p><code>Default 10</code></p>
+</div>
+
+<div class="attribute">
+<code>cutoffdeviation=</code>
+<p>Defines the effective range around the ideal cutoff.
+Value must be greater than or equal to 1. The smaller the
+value, the closer the cutoff must be to the ideal cutoff
+to receive maximum performance. Higher value means less
+pedantic cutoff and easier driving.
+</p>
+<p><code>Default 8</code></p>
+</div>
+
+<div class="attribute">
+<code>cutoffincreasekey=</code>
+<p>Defines the key for increasing cutoff.</p>
+<p><code>Default 5</code></p>
+</div>
+
+<div class="attribute">
+<code>cutoffdecreasekey=</code>
+<p>Defines the key for decreasing cutoff.</p>
+<p><code>Default 6</code></p>
+</div>
+
+<div class="attribute">
+<code>cutoffchangespeed=</code>
+<p>Defines how quickly the cutoff changes when key is held down
+(cutoff changes 1 unit at this interval (milliseconds)).</p>
+<p><code>Default 40</code></p>
+</div>
+
+<div class="attribute">
+<code>cutoffindicator=</code>
+<p>Sets the panel index for cutoff indicator.</p>
+<p><code>-1 (default)</code> - No indicator</p>
+</div>
+
+<div class="attribute">
+<code>regulatorpressureuse=</code>
+<p>Defines how much the maximum regulator opening lowers the pressure of the boiler
+(pressure units per second), when cutoff is at maximum setting.
+Must be greater than nil.</p>
+<p><code>Default 32</code></p>
+</div>
+
+<div class="attribute">
+<code>boilermaxpressure=</code>
+<p>Defines the nominal maximum pressure of the boiler.
+Must not be equal to minimum pressure.</p>
+<p><code>Default 20000</code></p>
+</div>
+
+<div class="attribute">
+<code>boilerminpressure=</code>
+<p>Defines the minimum boiler pressure enough to provide power for accelerating the train.
+Must not be equal to maximum pressure.</p>
+<p><code>Default 12000</code></p>
+</div>
+
+<div class="attribute">
+<code>boilerblowoffpressure=</code>
+<p>Sets the point of the safety valves blowing off. When blowing off occurs, the
+boiler pressure is reduced to maximum pressure.</p>
+<p><code>Default 21000</code></p>
+</div>
+
+<div class="attribute">
+<code>boilerpressureindicator=</code>
+<p>Sets the panel index of the pressure indicator.</p>
+<p><code>-1 (default)</code> - No indicator</p>
+</div>
+
+<div class="attribute">
+<code>boilermaxwaterlevel=</code>
+<p>Defines the maximum water level of the boiler (water units).</p>
+<p><code>Default 16000</code></p>
+</div>
+
+<div class="attribute">
+<code>boilerwatertosteamrate=</code>
+<p>Defines how many units of water are turned into equivalent number
+of pressure units in one minute. Must be greater than nil.</p>
+<p><code>Default 1500</code></p>
+</div>
+
+<div class="attribute">
+<code>boilerwaterlevelindicator=</code>
+<p>Sets the panel index of the boiler water level indicator.</p>
+<p><code>-1 (default)</code> - No indicator</p>
+</div>
+
+<div class="attribute">
+<code>injectorrate=</code>
+<p>Defines how many units of water the injector pumps from the
+tanks / tender to the boiler in a second. The injector drains
+one fourth that number of pressure units in the process.</p>
+<p><code>Default 100</code></p>
+</div>
+
+<div class="attribute">
+<code>injectorindicator=</code>
+<p>Sets the panel index of the injector on/off indicator.</p>
+<p><code>-1 (default)</code> - No indicator</p>
+</div>
+
+<div class="attribute">
+<code>injectortogglekey=</code>
+<p>Sets the key for toggling the injector on/off.</p>
+<p><code>Default -1</code></p>
+</div>
+
+
+
+
+<p class="copyright">Copyright 2004, 2005 Oskari Saarekas</p>
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+<html>
+<head>
+    <title>OS_ATS1.3 plug-in</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+<h1>OS_ATS1.3 plug-in for BVE v4</h1>
+
+
+<h3>Conditions of use</h3>
+<ul>
+<li>OS_ATS plug-in is freeware. If you don't know what 'freeware' means, you must find out.</li>
+<li>Use the plug-in at your own risk. The author takes no responsibility of any possible direct or indirect damage to you, your equipment, or something else, caused by any part of the plug-in or the distribution package.</li>
+<li>Apart from the documentation files, all other files included in the original plug-in package may be distributed without permission.</li>
+</ul>
+
+
+<h3>Contents</h3>
+<ul>
+<li><a href="driving.html">The demo trains - how to drive them</a></li>
+<li><a href="feats.html">List and description of the plug-in features</a></li>
+<li><a href="conf.html">How to create a train and configure the plug-in</a></li>
+<li><a href="beacons.html">How to prepare routes for trains using the plug-in</a></li>
+</ul>
+
+
+<h3>What is this?</h3>
+<p>
+BVE version 4 beta (and possibly newer versions in the future as well) support custom-made
+"plug-ins" for trains. Technically the plug-in is a dynamically linked library, i.e. a
+pre-compiled bunch of code. This one is written in C/C++. The purpose of the plug-in is
+to make possible the modeling of all sorts of different train safety systems, but it can
+be used for many other things as well.
+</p>
+<p>
+This plug-in features some generic and some British safety systems, as well as different
+many non-safety related features such as detailed traction modeling, e.g. steam locomotive
+controls and manual gearboxes. The plug-in features are highly customizable, with over
+100 attributes to fiddle with, so it can be used for non-British trains as well.
+</p>
+<p>
+This distribution package is mainly aimed at train and route developers, with instructions
+on how to use and setup the plug-in for the trains and routes. A test route with three different
+demo trains is included, and whether you're a developer or not, you might be interested in
+trying them. If you don't see how this plug-in package and its contents would be of any use
+to you, feel free to remove it. Eventually if BVE trains using this plug-in appear, the plug-in
+is included and pre-configured, so you don't even need to think about it. Still it could be
+useful to try the demo trains to know what to expect from the BVE trains using the plug-in,
+and how to actually drive them.
+</p>
+
+
+<h3>Changes from v1 -> v1.1</h3>
+<ul>
+<li>Wiper and drop sounds added</li>
+<li>Drop animation modes removed - only on/off mode remains</li>
+<li>Drop-wiping efficiency of the wiper improved</li>
+</ul>
+
+
+<h3>Changes from v1.1 -> v1.2</h3>
+<ul>
+<li>Rain drop sounds continue to play when all the drops are on the windshield</li>
+<li>Power loss bug apparently fixed</li>
+<li>Power/throttle controller bug fixed</li>
+<li>Bug with automatic cutoff on steam locomotives fixed</li>
+<li>Door state indicators for both sides and the associated beacon support added</li>
+<li>Whistle button/pull rope added</li>
+</ul>
+
+
+<h3>Changes from v1.2 -> v1.3</h3>
+<ul>
+<li>Power gap handling corrected and improved</li>
+<li>Alternative fuel indicator added</li>
+<li>Fuel fill indicator added</li>
+<li>Gear loop sound added</li>
+<li>Custom indicators added</li>
+</ul>
+
+
+<h3>Known bugs</h3>
+<p>
+The plug-in hasn't been very thoroughly tested, so there probably exists some bugs.
+If you happen to encounter one, please inform the author. See the e-mail address at
+the bottom of this page. Some currently known issues include: power gaps and rain
+will not work correctly when reversing, and automatic gearbox may not be 'sensible'
+all the time. In addition the door state indicators may not work properly when jumping
+stations.
+</p>
+
+
+<h3>Thanks to</h3>
+<ul>
+<li>Ron Dillard for ideas and testing</li>
+<li>Alex Farlie for ideas and help on safety systems</li>
+<li>Martin Finken for ideas and testing</li>
+<li>Simon Gathercole for help and ideas</li>
+<li>Steve Green for help on safety systems and testing</li>
+<li>Simon Townsend for help on safety systems</li>
+<li>All the train authors who have used the plugin</li>
+</ul>
+
+
+<h3>Contact</h3>
+<p>
+If you need additional instructions, or need help with the plug-in, send a message
+to&nbsp;<code>tocgame&#64;mbnet&#46;fi</code>&nbsp;with the three letters TPI at the
+beginning of the subject line (to avoid being taken as junk mail). If you haven't received
+a reply in a week, try re-sending the message.
+</p>
+
+
+<p class="copyright">Copyright 2004, 2005 Oskari Saarekas</p>
+
+</body>
+</html>
