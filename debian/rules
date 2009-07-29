@@ -34,13 +34,12 @@ install: build
 	dh_testroot
 	dh_clean -k 
 	dh_installdirs
-	for $$dir in 
 	install -m 644 -T $(CURDIR)/$(PLUGINNAME) $(PLUGINTARGET)
-        for train in $(TRAINS) ; do \
-	  mkdir -p $(TRAINTARGET)/$$train/
+	for train in $(TRAINS) ; do \
+	  mkdir -p $(TRAINTARGET)/$$train/ ; \
 	  ln -s $(PLUGINTARGET) $(TRAINTARGET)/$$train/ ; \
 	  echo $(PLUGINNAME) > $(TRAINTARGET)/$$train/ats.cfg ; \
-        done
+	done
 
 binary-arch: build install
 	dh_testdir
@@ -50,8 +49,12 @@ binary-arch: build install
 	dh_installdocs
 	dh_fixperms
 	dh_link
+	dh_makeshlibs
 	dh_installdeb
 	dh_compress
+	dh_shlibdeps
+	dh_strip
+	dh_makeshlibs
 	dh_gencontrol
 	dh_md5sums
 	dh_builddeb
@@ -59,5 +62,5 @@ binary-arch: build install
 binary-indep: 
 	# Do nothing
 
-binary: binary-indep
-.PHONY: build clean binary-indep binary install configure
+binary: binary-arch
+.PHONY: build clean binary-arch binary install configure
