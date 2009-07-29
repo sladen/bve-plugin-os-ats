@@ -33,7 +33,11 @@
 #endif
 #else
 #define WINAPI
+#ifdef __cplusplus
+#define ATS_API extern "C"
+#else
 #define ATS_API 
+#endif
 #endif
 
 // ATS Plug-in Version
