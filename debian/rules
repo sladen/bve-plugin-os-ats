@@ -37,7 +37,7 @@ install: build
 	install -m 644 -T $(CURDIR)/$(PLUGINNAME) $(PLUGINTARGET)
 	for train in $(TRAINS) ; do \
 	  mkdir -p $(TRAINTARGET)/$$train/ ; \
-	  ln -s $(PLUGINTARGET) $(TRAINTARGET)/$$train/ ; \
+	  (cd $(TRAINTARGET)/$$train/ && ln -s /$(PLUGINDIR)/$(PLUGINNAME)) ; \
 	  echo $(PLUGINNAME) > $(TRAINTARGET)/$$train/ats.cfg ; \
 	done
 
