@@ -3,5 +3,6 @@ bve-plugin-os-ats (1.3+dfsg-0ubuntu1) unreleased; urgency=low
   * New upstream release 1.3, timestamped 2005-03-13
   * Initial release
   * Add an example configuration for 'bve-train-br-class-323'
+  + debian/rules: install BR_Class_323.cfg
 
  -- Paul Sladen <ubuntu@paul.sladen.org>  Wed, 29 Jul 2009 01:59:00 +0100

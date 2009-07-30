@@ -1,7 +1,9 @@
 #!/usr/bin/make -f
 export DH_VERBOSE=15
 TARGET = $(CURDIR)/debian/bve-plugin-os-ats
-PLUGINNAME = OS_Ats1.so
+PLUGINBASE = OS_Ats1
+PLUGINNAME = $(PLUGINBASE).so
+PLUGINCONFIG = $(PLUGINBASE).cfg
 PLUGINDIR = usr/lib/bve/plugins
 PLUGINTARGET = $(TARGET)/$(PLUGINDIR)/$(PLUGINNAME)
 
@@ -39,6 +41,7 @@ install: build
 	  mkdir -p $(TRAINTARGET)/$$train/ ; \
 	  (cd $(TRAINTARGET)/$$train/ && ln -s /$(PLUGINDIR)/$(PLUGINNAME)) ; \
 	  echo $(PLUGINNAME) > $(TRAINTARGET)/$$train/ats.cfg ; \
+	  cp -a $(CURDIR)/debian/$$train.cfg $(TRAINTARGET)/$$train/$(PLUGINCONFIG) ; \
 	done
 
 binary-arch: build install
