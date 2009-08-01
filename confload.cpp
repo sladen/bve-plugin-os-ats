@@ -1,5 +1,7 @@
 #ifndef __WIN32__
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #endif
 #include "confload.h"
 
@@ -243,10 +245,14 @@ bool LoadConfig()
 	}
 #else
 	// Hardcoding, but still need to figure out how to get the Train's directory -sladen
+	char *cwd = get_current_dir_name();
+	fprintf(stderr, "OS_Ats1: LoadConfig() cwd=\"%s\"\n", cwd);
+	free(cwd);
 	FILE *f = fopen("OS_Ats1.cfg", "r");
 	if (f == NULL)
 	  return false;
 #endif
+	fprintf(stderr, "OS_Ats1: LoadConfig(), found the config!\n");
 		
 //	char line[LINE_LENGTH+1];
 	char *line = new char[LINE_LENGTH + 1];

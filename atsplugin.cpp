@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "atsplugin.h"
 
 char copyright[] = "Copyright Oskari Saarekas 2004, 2005";
@@ -92,6 +93,7 @@ ATS_API void WINAPI Initialize(int brake)
 // Function called every frame
 ATS_API ATS_HANDLES WINAPI Elapse(ATS_VEHICLESTATE vs, int *panel, int *sound)
 {
+        //fprintf(stderr, "OS_Ats1: Elapse(speed=%f)\n", vs.Speed);
 	if(gPanel != panel)
 	{
 		gPanel = panel;
@@ -148,6 +150,7 @@ ATS_API void WINAPI SetReverser(int setting)
 // Function called when the ATS key is pushed
 ATS_API void WINAPI KeyDown(int key)
 {
+	fprintf(stderr, "OS_Ats1: KeyDown(%d)\n", key);
 	PowerControlKeyPressed(key);
 	WindshieldKeyPressed(key);
 	BRSafetyKeyPressed(key);
